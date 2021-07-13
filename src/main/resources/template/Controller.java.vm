@@ -1,0 +1,97 @@
+package ${package}.controller;
+
+import io.swagger.annotations.Api;
+import ${package}.entity.${className};
+import ${package}.service.${className}Service;
+import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+import lombok.extern.slf4j.Slf4j;
+import javax.annotation.Resource;
+import java.util.Date;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+
+
+/**
+ * @Description ${comments}
+ * @Author ${author}
+ * @Date ${datetime}
+ */
+@Slf4j
+@RestController
+@Api(value = "${pathName}", tags = "${comments}管理")
+public class ${className}Controller {
+
+    @Resource
+    private ${className}Service ${classname}Service;
+
+    /**
+     * 分页查询
+     * @param pageNumber 当前页，默认1
+     * @param pageSize 每页条数，默认10
+     * @param ${classname} ${comments}
+     * @return
+     */
+    @ApiOperation(value = "分页查询", notes = "分页查询")
+    @ApiImplicitParams({
+      @ApiImplicitParam(paramType = "query", name = "pageNumber", value = "当前页，默认1", required = false, dataType = "Integer"),
+      @ApiImplicitParam(paramType = "query", name = "pageSize", value = "每页条数，默认10", required = false, dataType = "Integer")
+    })
+    @GetMapping("${pathName}/page" )
+    public Result<PageInfo<${className}>> get${className}Page(${className} ${classname},
+												@RequestParam(required = false, defaultValue = "1") Integer pageNumber,
+												@RequestParam(required = false, defaultValue = "10") Integer pageSize) {
+        PageHelper.startPage(pageNumber,pageSize);
+        return Result.ok(new PageInfo<>(${classname}Service.findList(${classname})));
+    }
+
+
+    /**
+     * 通过id查询${comments}
+     * @param ${pk.lowerAttrName}
+     * @return Result
+     */
+    @ApiOperation(value = "通过id查询", notes = "通过id查询")
+    @GetMapping("${pathName}/{${pk.lowerAttrName}}" )
+    public Result<${className}> getById(@PathVariable("${pk.lowerAttrName}" ) ${pk.attrType} ${pk.lowerAttrName}) {
+        return Result.ok(${classname}Service.findOneById(${pk.lowerAttrName}));
+    }
+
+    /**
+     * 新增${comments}
+     * @param ${classname} ${comments}
+     * @return Result
+     */
+    @ApiOperation(value = "新增${comments}", notes = "新增${comments}")
+    @PostMapping("${pathName}/add")
+    public Result save(@RequestBody ${className} ${classname}) {
+        return Result.ok(${classname}Service.save(${classname}));
+    }
+
+    /**
+     * 修改${comments}
+     * @param ${classname} ${comments}
+     * @return Result
+     */
+    @ApiOperation(value = "修改${comments}", notes = "修改${comments}")
+    @PostMapping("${pathName}/update")
+    public Result updateById(@RequestBody ${className} ${classname}) {
+        return Result.ok(${classname}Service.updateById(${classname}));
+    }
+
+    /**
+     * 通过id删除${comments}
+     * @param ${pk.lowerAttrName}
+     * @return Result
+     */
+    @ApiOperation(value = "通过id删除${comments}", notes = "通过id删除${comments}")
+    @PostMapping("${pathName}/delete/{${pk.lowerAttrName}}" )
+    public Result removeById(@PathVariable ${pk.attrType} ${pk.lowerAttrName}) {
+        return Result.ok(${classname}Service.deleteById(${pk.lowerAttrName}));
+    }
+
+}

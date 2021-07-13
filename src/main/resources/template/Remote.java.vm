@@ -1,0 +1,64 @@
+package ${package}.feign;
+
+import com.github.pagehelper.PageInfo;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.*;
+import com.jkcloud.common.core.util.Result;
+import ${package}.entity.${className};
+
+/**
+ * @Description ${comments}对外暴露的服务
+ * @Author ${author}
+ * @Date ${datetime}
+ */
+@FeignClient(contextId = "Remote${className}Service", value = FeignNameConstants.,
+  fallbackFactory = Remote${className}ServiceFallbackFactory.class)
+public interface Remote${className}Service {
+
+  /**
+   * 分页查询
+   * @param current 当前页，默认1
+   * @param size 每页条数，默认10
+   * @param ${classname} ${comments}
+   * @return
+   */
+  @GetMapping("${pathName}/page" )
+  Result<PageInfo<${className}>> get${className}Page(@RequestParam(required = false) ${className} ${classname},
+    @RequestParam(required = false, defaultValue = "1") Long current,
+    @RequestParam(required = false, defaultValue = "10") Long size);
+
+  /**
+   * 通过id查询${comments}
+   * @param ${pk.lowerAttrName}
+   * @return Result
+   */
+  @GetMapping("${pathName}/{${pk.lowerAttrName}}" )
+  public Result<${className}> getById(@PathVariable("${pk.lowerAttrName}" ) ${pk.attrType} ${pk.lowerAttrName});
+
+  /**
+   * 新增${comments}
+   * @param ${classname} ${comments}
+   * @return Result
+   */
+  @ApiOperation(value = "新增${comments}", notes = "新增${comments}")
+  @PostMapping("${pathName}/add")
+  public Result save(@RequestBody ${className} ${classname});
+
+  /**
+   * 修改${comments}
+   * @param ${classname} ${comments}
+   * @return Result
+   */
+  @ApiOperation(value = "修改${comments}", notes = "修改${comments}")
+  @PostMapping("${pathName}/update")
+  public Result updateById(@RequestBody ${className} ${classname});
+
+  /**
+   * 通过id删除${comments}
+   * @param ${pk.lowerAttrName}
+   * @return Result
+   */
+  @ApiOperation(value = "通过id删除${comments}", notes = "通过id删除${comments}")
+  @PostMapping("${pathName}/delete/{${pk.lowerAttrName}}" )
+  public Result removeById(@PathVariable ${pk.attrType} ${pk.lowerAttrName});
+}

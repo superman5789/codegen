@@ -1,0 +1,22 @@
+.datasource{
+    float: left;
+    margin: 10px;
+    cursor: pointer;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    background-color: #eee;
+    text-align: center;
+}
+
+.datasourceTable{
+    float: left;
+    margin: 10px;
+    cursor: pointer;
+    width: 200px;
+    height: 100px;
+    line-height: 100px;
+    background-color: #eee;
+    text-align: center;
+}
+

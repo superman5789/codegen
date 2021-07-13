@@ -1,0 +1,22 @@
+package ${package}.feign.factory;
+
+import org.springframework.stereotype.Component;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.*;
+
+/**
+ * @Description ${comments}对外暴露的服务
+ * @Author ${author}
+ * @Date ${datetime}
+ */
+@Component
+public class Remote${className}ServiceFallbackFactory implements FallbackFactory<Remote${className}Service> {
+
+  @Override
+  public Remote${className}Service create(Throwable throwable) {
+    Remote${className}ServiceFallbackImpl fallback = new Remote${className}ServiceFallbackImpl();
+    fallback.setCause(throwable);
+    return fallback;
+  }
+}

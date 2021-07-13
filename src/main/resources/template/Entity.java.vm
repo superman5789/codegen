@@ -1,0 +1,45 @@
+package ${package}.entity;
+
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.serializer.ToStringSerializer;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+#if(${hasBigDecimal})
+import java.math.BigDecimal;
+#end
+import java.io.Serializable;
+import javax.persistence.*;
+import java.util.Date;
+
+/**
+ * @Description ${comments}
+ * @Author ${author}
+ * @Date ${datetime}
+ */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Table(name = "`${tableName}`")
+@ApiModel(value = "${comments}")
+public class ${className}{
+private static final long serialVersionUID = 1L;
+
+    #foreach ($column in $columns)
+    /**
+     * $column.comments
+     */
+    #if($column.columnName == $pk.columnName)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JSONField(serializeUsing = ToStringSerializer.class)
+    #end
+    @ApiModelProperty(value="$column.comments"#if($column.hidden),hidden=$column.hidden#end)
+    private $column.attrType $column.lowerAttrName;
+    #end
+}

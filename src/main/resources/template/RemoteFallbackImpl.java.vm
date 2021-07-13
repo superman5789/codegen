@@ -1,0 +1,78 @@
+package ${package}.feign.fallback;
+
+import com.github.pagehelper.PageInfo;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+import com.jkcloud.common.core.util.Result;
+import ${package}.entity.${className};
+
+/**
+ * @Description ${comments}降级处理类
+ * @Author ${author}
+ * @Date ${datetime}
+ */
+@Slf4j
+public class Remote${className}ServiceFallbackImpl implements Remote${className}Service {
+
+  @Setter
+  private Throwable cause;
+
+  /**
+   * 分页查询
+   * @param current 当前页，默认1
+   * @param size 每页条数，默认10
+   * @param ${classname} ${comments}
+   * @return
+   */
+  @Override
+  public Result<PageInfo<${className}>> get${className}Page(${className} ${classname},
+    @RequestParam(required = false, defaultValue = "1") Long current,
+    @RequestParam(required = false, defaultValue = "10") Long size) {
+      log.error("feign 分页查询失败:{}", ${classname}, cause);
+      return null;
+  }
+
+  /**
+   * 通过id查询${comments}
+   * @param ${pk.lowerAttrName}
+   * @return Result
+   */
+  @Override
+  public Result<${className}> getById(@PathVariable("${pk.lowerAttrName}" ) ${pk.attrType} ${pk.lowerAttrName}){
+    log.error("feign 通过id查询失败:{}", ${pk.lowerAttrName}, cause);
+    return null;
+  }
+
+  /**
+   * 新增${comments}
+   * @param ${classname} ${comments}
+   * @return Result
+   */
+  @Override
+  public Result save(@RequestBody ${className} ${classname}){
+    log.error("feign 新增${comments}失败:{}", ${classname}, cause);
+    return null;
+  }
+
+  /**
+   * 修改${comments}
+   * @param ${classname} ${comments}
+   * @return Result
+   */
+  @Override
+  public Result updateById(@RequestBody ${className} ${classname}){
+    log.error("feign 修改${comments}失败:{}", ${classname}, cause);
+    return null;
+  }
+
+  /**
+   * 通过id删除${comments}
+   * @param ${pk.lowerAttrName}
+   * @return Result
+   */
+  @Override
+  public Result removeById(@PathVariable ${pk.attrType} ${pk.lowerAttrName}){
+    log.error("feign 通过id删除${comments}失败:{}", ${pk.lowerAttrName}, cause);
+    return null;
+  }
+}

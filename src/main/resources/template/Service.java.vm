@@ -1,0 +1,13 @@
+package ${package}.service;
+
+import ${package}.entity.${className};
+import com.jkcloud.common.tk.mybatis.service.BaseService;
+
+/**
+ * @Description ${comments}
+ * @Author ${author}
+ * @Date ${datetime}
+ */
+public interface ${className}Service extends BaseService<${className}> {
+
+}
